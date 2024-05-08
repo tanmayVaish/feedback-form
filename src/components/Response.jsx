@@ -13,16 +13,18 @@ class Response extends React.Component {
     const choices = response ? response.choices : [];
 
     return (
-      <div className="custom-feedback-display"> {/* Changed classname */}
+      <div className="custom-feedback-display">
         <h2>Feedback Summary</h2>
         <h3>Thank you for your precious time.</h3>
-        <div className="custom-questions-container"> {/* Changed classname */}
-          {question?.map((question, index) => (
-            <div key={index} className="custom-question-wrapper"> {/* Changed classname */}
-              <h3>{question}</h3>
-              <p>{choices[index]}</p>
-            </div>
-          ))}
+        <div className="custom-questions-container">
+          {question?.map((question, index) =>
+            question ? (
+              <div key={index} className="custom-question-wrapper">
+                <h3>{question}</h3>
+                <p>{choices[index]}</p>
+              </div>
+            ) : null
+          )}
         </div>
       </div>
     );
