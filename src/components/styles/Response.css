@@ -1,0 +1,23 @@
+.custom-feedback-display {
+  margin-top: 20px;
+}
+
+.custom-questions-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-question-wrapper {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-question-wrapper h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.custom-question-wrapper p {
+  margin: 0;
+}

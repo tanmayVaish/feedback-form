@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles/Form.css";
 import Context from "../store/context.js";
+import withHeader from "../HOCs/withHeader";
 
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -15,16 +16,37 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: [],
+      questions: [],
       choices: [],
     };
   }
+
+  handleRadioChange = (index, value) => {
+    const updatedChoices = [...this.state.choices];
+    updatedChoices[index] = value;
+    this.setState({ choices: updatedChoices });
+  };
+
+  handleSubmit = () => {
+    const contextData = this.context;
+    const { questions, choices } = this.state;
+  
+    contextData.setContext({
+      data: contextData.data,
+      setContext: contextData.setContext,
+      response: {
+        questions,
+        choices,
+      },
+    });
+  };
+  
 
   render() {
     const { data } = this.context;
 
     const feedbackQuestions = data ? data.feedbackQuestions : [];
-    const choices = data ? data.choices : [];
+    const choices = this.state.choices;
 
     return (
       <div className="form-container-wrapper">
@@ -54,12 +76,17 @@ class Form extends React.Component {
                   <FormControl component="fieldset">
                     <RadioGroup
                       aria-label="questions"
-                      name="questions"
-                      // value={value}
-                      // onChange={handleChange}
+                      name={`questions-${index}`}
                       row
+                      value={choices[index] || ""}
+                      onChange={(event) => {
+                        this.handleRadioChange(index, event.target.value);
+                        const updatedQuestions = [...this.state.questions];
+                        updatedQuestions[index] = question;
+                        this.setState({ questions: updatedQuestions });
+                      }}
                     >
-                      {choices[index].map((choice, choiceIndex) => (
+                      {data.choices[index].map((choice, choiceIndex) => (
                         <FormControlLabel
                           key={choiceIndex}
                           value={choice}
@@ -75,11 +102,16 @@ class Form extends React.Component {
             </div>
           )}
         </div>
-        <Button variant="contained" color="secondary" size="large">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          onClick={this.handleSubmit}
+        >
           Submit
         </Button>
       </div>
     );
   }
 }
-export default Form;
+export default withHeader(Form);
