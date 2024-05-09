@@ -18,7 +18,6 @@ const withHeader = (WrappedComponent) => {
             <img
               src={logo}
               alt="Company Logo"
-              style={{ width: "auto", height: "100px" }}
             />
             <div>
               <h1>Feedback Survey</h1>

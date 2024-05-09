@@ -23,6 +23,7 @@ class Form extends React.Component {
 
   handleRadioChange = (index, value) => {
     const updatedChoices = [...this.state.choices];
+    console.log(this.state.choices);
     updatedChoices[index] = value;
     this.setState({ choices: updatedChoices });
   };
@@ -30,7 +31,7 @@ class Form extends React.Component {
   handleSubmit = () => {
     const contextData = this.context;
     const { questions, choices } = this.state;
-  
+
     contextData.setContext({
       data: contextData.data,
       setContext: contextData.setContext,
@@ -40,7 +41,6 @@ class Form extends React.Component {
       },
     });
   };
-  
 
   render() {
     const { data } = this.context;
